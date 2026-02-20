@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\MyLibrary\Main.cpp" />
+    <ClCompile Include="Source\MyLibrary\Scene.cpp" />
+    <ClCompile Include="Source\MyLibrary\Server.cpp" />
+    <ClCompile Include="Source\ServerScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\MyLibrary\Packet.h" />
+    <ClInclude Include="Source\MyLibrary\Scene.h" />
+    <ClInclude Include="Source\MyLibrary\Server.h" />
+    <ClInclude Include="Source\ServerScene.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -132,14 +144,6 @@
       <AdditionalLibraryDirectories>D:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Server.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Packet.h" />
-    <ClInclude Include="Source\Server.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

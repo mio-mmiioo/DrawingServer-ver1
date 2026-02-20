@@ -1,14 +1,9 @@
 #define WIN32_LEAN_AND_MEAN
 #include "DxLib.h"
-#include "Server.h"
+#include "Scene.h"
 
 const int WINDOW_WIDTH = 1000; // ウィンドウの横幅
 const int WINDOW_HEIGHT = 700; // ウィンドウの高さ
-
-Server* server = new Server(8888);
-
-int hRecvImage = -1;
-
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -22,24 +17,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetBackgroundColor(0, 0, 0);
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	if (server->Init() == -1)
-	{
-		return -1;
-	}
+	SceneMaster::Init();
 
 	while (1)
 	{
 		// 更新処理
-		server->Update();
-		if (server->GetRecvData().hImage > 0)
-		{
-			hRecvImage = server->GetRecvData().hImage;
-		}
-
+		SceneMaster::Update();
+		
 		// 描画処理
 		ScreenFlip();
 		ClearDrawScreen();
-
+		SceneMaster::Draw();
 
 		if (ProcessMessage() == -1) 
 		{

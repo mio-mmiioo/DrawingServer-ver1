@@ -9,18 +9,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Main.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="Source\MyLibrary\Main.cpp">
+      <Filter>MyLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Server.cpp">
+    <ClCompile Include="Source\MyLibrary\Scene.cpp">
+      <Filter>MyLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyLibrary\Server.cpp">
+      <Filter>MyLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ServerScene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Packet.h">
-      <Filter>Source</Filter>
+    <ClInclude Include="Source\MyLibrary\Packet.h">
+      <Filter>MyLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Server.h">
+    <ClInclude Include="Source\MyLibrary\Scene.h">
+      <Filter>MyLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MyLibrary\Server.h">
+      <Filter>MyLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ServerScene.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

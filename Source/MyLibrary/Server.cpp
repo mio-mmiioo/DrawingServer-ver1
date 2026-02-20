@@ -94,6 +94,7 @@ void Server::SendData()
     {
         if (s == -1) continue;
         // ëóêM
+        sendData_ = ByteSwapPacket(recvData_);
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
         {
@@ -116,8 +117,8 @@ void Server::ReceiveData()
             recvData_ = ByteSwapPacket(recvData_);
             printfDx(recvData_.str);
             printfDx(" : %d\n", recvData_.hImage);
-            sendData_ = ByteSwapPacket(recvData_);
-            SendData();
+            //sendData_ = ByteSwapPacket(recvData_);
+            //SendData();
         }
         else
         {
@@ -139,4 +140,21 @@ void Server::RemoveSocket()
         remove_if(sockets_.begin(), sockets_.end(), [](SOCKET sock)
             { return sock == -1; }),
         sockets_.end());
+}
+
+void Server::AddPeople(char name)
+{
+    bool make = false; // ñºëOÇêVÇµÇ≠çÏÇÈÇ©
+    for (int people = 0; people < name_.size(); people++)
+    {
+        if (name_[people] != name && people == name_.size() - 1)
+        {
+            make = true;
+        }
+    }
+
+    if (make == true)
+    {
+        name_.push_back(name);
+    }
 }
