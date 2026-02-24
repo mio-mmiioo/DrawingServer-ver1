@@ -94,7 +94,7 @@ void Server::SendData()
     {
         if (s == -1) continue;
         // ‘—M
-        sendData_ = ByteSwapPacket(recvData_);
+        sendData_ = Packet::ByteSwapPacket(recvData_);
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
         {
@@ -106,6 +106,29 @@ void Server::SendData()
     }
 }
 
+void Server::SendData(PACKET data)
+{
+    for (auto s : sockets_)
+    {
+        if (s == -1) continue;
+
+        // ‘—M
+        sendData_ = Packet::ByteSwapPacket(data);
+        int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
+        if (sendRet == SOCKET_ERROR)
+        {
+            if (WSAGetLastError() == WSAEWOULDBLOCK)
+            {
+                continue;
+            }
+        }
+    }
+}
+
+void Server::SendData(PACKET data, char name)
+{
+}
+
 void Server::ReceiveData()
 {
     // ŽóMˆ—
@@ -114,8 +137,9 @@ void Server::ReceiveData()
         int ret = recv(s, (char*)&recvData_, sizeof(PACKET), 0);
         if (ret > 0)
         {
-            recvData_ = ByteSwapPacket(recvData_);
-            printfDx(recvData_.str);
+            recvData_ = Packet::ByteSwapPacket(recvData_);
+            printfDx(recvData_.dataType);
+            printfDx(" : %s", recvData_.playerName);
             printfDx(" : %d\n", recvData_.hImage);
             //sendData_ = ByteSwapPacket(recvData_);
             //SendData();

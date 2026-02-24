@@ -9,7 +9,9 @@ public:
 	~Server();		// デストラクタ
 	int Init();		// 初期化
 	void Update();	// 更新処理
-	void SendData();	 // データの送信
+	void SendData();						// データの送信
+	void SendData(PACKET data);				// 指定したデータの送信
+	void SendData(PACKET data, char name);	// 指定したデータを指定した参加者に送信
 	void ListenSocket(); // socketの受信
 	void ReceiveData();	 // データの受信
 	void RemoveSocket(); // socketの削除

@@ -21,6 +21,9 @@
     <ClCompile Include="Source\ServerScene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MyLibrary\Packet.cpp">
+      <Filter>MyLibrary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\MyLibrary\Packet.h">

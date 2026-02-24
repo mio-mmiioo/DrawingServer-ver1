@@ -1,21 +1,39 @@
 #pragma once
 #include <WinSock2.h>
+#include <vector>
 #include <string>
+#include <map>
 
-// 受信したいデータの中身
-static struct PACKET
+// 受信したデータの種類
+enum PACKET_DATA_TYPE
 {
-    char str[256];
-    int hImage;
+	MAKE_ROOM,		// 部屋立ち上げ
+	ENTER_ROOM,		// 入室
+	END_MAKE_ROOM,	// 部屋作成完了
+	REGISTER_NAME,	// 名前の登録
+	MAX_PACKET_TYPE
 };
 
-// バイトオーダーを変換する関数
-// PACKET内を書き換えたら書き換える必要がある
-static PACKET ByteSwapPacket(PACKET data)
+// 受信したいデータの中身
+struct PACKET
 {
-    PACKET ret;
-    memcpy(ret.str, data.str, sizeof(ret.str));
-    ret.hImage = htonl(data.hImage);
-    return ret;
+	char dataType[256];
+	char playerName[256];
+	int hImage;
+};
+
+namespace Packet
+{
+	void Init(); // 初期化
+
+	// バイトオーダーを変換する関数
+	// PACKET内を書き換えたら書き換える必要がある
+	PACKET ByteSwapPacket(PACKET data);
+
+	// 追加されたプレイヤーの名前を保存しておく配列
+	// 追加できた場合 → 1, 追加できなかった場合 → -1
+	int AddPlayerName(std::string name);
+
+
 }
 
