@@ -19,7 +19,7 @@ struct PACKET
 {
 	char dataType[256];
 	char playerName[256];
-	int hImage;
+	int number;
 };
 
 namespace Packet
@@ -34,6 +34,6 @@ namespace Packet
 	// 追加できた場合 → 1, 追加できなかった場合 → -1
 	int AddPlayerName(std::string name);
 
-
+	extern std::map<std::string, PACKET_DATA_TYPE> dataName;	// データの名前, データの種類
 }
 

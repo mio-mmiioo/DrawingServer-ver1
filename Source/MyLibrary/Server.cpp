@@ -94,6 +94,7 @@ void Server::SendData()
     {
         if (s == -1) continue;
         // ‘—M
+        printfDx("sendData : %s", sendData_.dataType);
         sendData_ = Packet::ByteSwapPacket(recvData_);
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
@@ -125,10 +126,6 @@ void Server::SendData(PACKET data)
     }
 }
 
-void Server::SendData(PACKET data, char name)
-{
-}
-
 void Server::ReceiveData()
 {
     // óMˆ—
@@ -140,7 +137,7 @@ void Server::ReceiveData()
             recvData_ = Packet::ByteSwapPacket(recvData_);
             printfDx(recvData_.dataType);
             printfDx(" : %s", recvData_.playerName);
-            printfDx(" : %d\n", recvData_.hImage);
+            printfDx(" : %d\n", recvData_.number);
             //sendData_ = ByteSwapPacket(recvData_);
             //SendData();
         }

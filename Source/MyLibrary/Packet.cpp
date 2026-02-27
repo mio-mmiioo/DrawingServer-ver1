@@ -20,7 +20,7 @@ PACKET Packet::ByteSwapPacket(PACKET data)
 	PACKET ret;
 	memcpy(ret.dataType, data.dataType, sizeof(ret.dataType));
 	memcpy(ret.playerName, data.playerName, sizeof(ret.playerName));
-	ret.hImage = htonl(data.hImage);
+	ret.number= htonl(data.number);
 	return ret;
 }
 
