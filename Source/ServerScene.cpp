@@ -35,6 +35,7 @@ void ServerScene::GetDataUpdate()
 	switch (Packet::dataName[recvData_.dataType])
 	{
 	case END_MAKE_ROOM: // 部屋立ち上げ終了と言われたら
+		server_->SetPlayerLimit(server_->GetPlayerCount()); // プレイヤーの人数を設定
 		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_PLAY", _TRUNCATE);
 		server_->SendData(sendData_);
 		break;

@@ -81,7 +81,7 @@ void Server::ListenSocket()
     SOCKADDR_IN clientAddr;
     int addressLength = sizeof(SOCKADDR_IN);
     int tmpSocket = accept(listenSocket_, (SOCKADDR*)&clientAddr, &addressLength);
-    if (tmpSocket > 0)
+    if (tmpSocket > 0 && sockets_.size()<SERVER::MAX_PLAYER)
     {
         ioctlsocket(listenSocket_, FIONBIO, &cmdarg);
         sockets_.push_back(tmpSocket);
