@@ -126,20 +126,20 @@ void Server::SendData(PACKET data)
     }
 }
 
-void Server::ReceiveData()
+bool Server::ReceiveData()
 {
+    bool ret = false;
     // ŽóMˆ—
     for (auto s : sockets_)
     {
-        int ret = recv(s, (char*)&recvData_, sizeof(PACKET), 0);
-        if (ret > 0)
+        int check = recv(s, (char*)&recvData_, sizeof(PACKET), 0);
+        if (check > 0)
         {
             recvData_ = Packet::ByteSwapPacket(recvData_);
             printfDx(recvData_.dataType);
             printfDx(" : %s", recvData_.playerName);
             printfDx(" : %d\n", recvData_.number);
-            //sendData_ = ByteSwapPacket(recvData_);
-            //SendData();
+            ret = true;
         }
         else
         {
@@ -152,6 +152,7 @@ void Server::ReceiveData()
             }
         }
     }
+    return ret;
 }
 
 void Server::RemoveSocket()

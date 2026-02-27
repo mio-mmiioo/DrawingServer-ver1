@@ -12,7 +12,7 @@ public:
 	void SendData();						// データの送信
 	void SendData(PACKET data);				// 指定したデータの送信
 	void ListenSocket(); // socketの受信
-	void ReceiveData();	 // データの受信
+	bool ReceiveData();	 // データの受信
 	void RemoveSocket(); // socketの削除
 
 	void AddPeople(char name); // メンバーの追加

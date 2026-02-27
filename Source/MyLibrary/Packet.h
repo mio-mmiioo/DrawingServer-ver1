@@ -10,7 +10,11 @@ enum PACKET_DATA_TYPE
 	MAKE_ROOM,		// 部屋立ち上げ
 	ENTER_ROOM,		// 入室
 	END_MAKE_ROOM,	// 部屋作成完了
-	REGISTER_NAME,	// 名前の登録
+	CHANGE_NAME,	// 名前の登録
+	STOP_GAME,		// 回答待ち
+	START_GAME,		// ゲーム再開
+	SEND_IMAGE,		// 回答・お題の画像
+	START_MATCHING, // マッチング画面開始
 	MAX_PACKET_TYPE
 };
 
