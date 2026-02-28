@@ -34,7 +34,14 @@ void ServerScene::GetDataUpdate()
 	switch (Packet::dataName[recvData_.dataType])
 	{
 	case END_MAKE_ROOM: // 部屋立ち上げ終了と言われたら
-		server_->SetPlayerLimit(server_->GetPlayerCount()); // プレイヤーの人数を設定
+		// プレイヤーの人数を設定
+		server_->SetPlayerLimit(server_->GetPlayerCount());
+		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "PLAYER_COUNT", _TRUNCATE);
+		sendData_.number = server_->GetPlayerCount();
+		phaseCount_ = sendData_.number;
+		server_->SendData(sendData_);
+
+		// ゲーム開始の指示
 		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_PLAY", _TRUNCATE);
 		server_->SendData(sendData_);
 		break;
@@ -66,10 +73,35 @@ void ServerScene::GetDataUpdate()
 		// 今までに送られてきたimageをリストに追加
 		// 参加者分そろったら、参加人数分送り返す
 		// その後ゲーム再開
+		if (AddRecvImage(recvData_) == server_->GetPlayerCount())
+		{
+			strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "SEND_IMAGE", _TRUNCATE);
+			for (int count = 0; count < hImageList_.size(); count++)
+			{
+				sendData_.number = hImageList_[count];
+				server_->SendData(sendData_);
+			}
+			hImageList_.clear();
+			phaseCount_ = -1;
+			if (phaseCount_ <= 0)
+			{
+				strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_RESULT", _TRUNCATE);
+				server_->SendData(sendData_);
+			}
+			else
+			{
+				strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_GAME", _TRUNCATE);
+				server_->SendData(sendData_);
+			}
+		}
+		break;
 
-
-
-
+	case STOP_GAME:
+		if (phaseCount_ <= 0)
+		{
+			strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_RESULT", _TRUNCATE);
+			server_->SendData(sendData_);
+		}
 		break;
 	}
 }

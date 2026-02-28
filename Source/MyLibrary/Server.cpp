@@ -98,8 +98,8 @@ void Server::SendData()
     {
         if (s == -1) continue;
         // ‘—M
-        printfDx("sendData : %s", sendData_.dataType);
         sendData_ = Packet::ByteSwapPacket(recvData_);
+        printfDx("sendData : %s : %d\n", sendData_.dataType, sendData_.number);
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
         {
@@ -119,6 +119,7 @@ void Server::SendData(PACKET data)
 
         // ‘—M
         sendData_ = Packet::ByteSwapPacket(data);
+        printfDx("sendData : %s : %d\n", sendData_.dataType, sendData_.number);
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
         {

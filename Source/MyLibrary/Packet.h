@@ -11,8 +11,11 @@ enum PACKET_DATA_TYPE
 	ENTER_ROOM,		// 入室
 	END_MAKE_ROOM,	// 部屋作成完了
 	CHANGE_NAME,	// 名前の登録
-	STOP_GAME,		// 回答待ち
+	START_PLAY,     // プレイ画面開始
+	PLAYER_COUNT,	// プレイヤーの人数
 	START_GAME,		// ゲーム再開
+	STOP_GAME,      // ゲーム停止中
+	START_RESULT,	// リザルト画面開始
 	SEND_IMAGE,		// 回答・お題の画像
 	START_MATCHING, // マッチング画面開始
 	MAX_PACKET_TYPE

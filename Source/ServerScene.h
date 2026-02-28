@@ -14,7 +14,7 @@ public:
 	void GetDataUpdate(); // データを取得したときに行われる更新処理
 
 private:
-	int AddRecvImage(PACKET recv); // 受信した画像データをリストに追加する -1 → 追加できなかった
+	int AddRecvImage(PACKET recv); // 受信した画像データを配列に追加する -1 → 追加できなかった
 	
 	Server* server_;
 	PACKET sendData_; // 送信データ
@@ -22,6 +22,7 @@ private:
 	std::vector<int> useNumber_;
 	//char name[256];
 	int playerCount_; // 各部屋にいるプレイヤー
+	int phaseCount_; // 各部屋のフェーズの回数
 	
-	std::vector<int> hImageList_;
+	std::vector<int> hImageList_; // 受信した画像データを保存する配列
 };
