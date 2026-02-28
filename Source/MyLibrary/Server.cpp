@@ -10,6 +10,10 @@ using namespace std;
 
 unsigned long cmdarg = 0x01;
 
+namespace SERVER {
+	const int MAX_PLAYER = 8; // Å‘åƒvƒŒƒCƒ„[”
+}
+
 Server::Server(int portNumber)
 {
     portNumber_ = portNumber;
@@ -81,7 +85,7 @@ void Server::ListenSocket()
     SOCKADDR_IN clientAddr;
     int addressLength = sizeof(SOCKADDR_IN);
     int tmpSocket = accept(listenSocket_, (SOCKADDR*)&clientAddr, &addressLength);
-    if (tmpSocket > 0 && sockets_.size()<SERVER::MAX_PLAYER)
+    if (tmpSocket > 0 && sockets_.size() < SERVER::MAX_PLAYER)
     {
         ioctlsocket(listenSocket_, FIONBIO, &cmdarg);
         sockets_.push_back(tmpSocket);

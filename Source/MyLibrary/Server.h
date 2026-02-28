@@ -2,10 +2,6 @@
 #include <vector>
 #include "Packet.h"
 
-namespace SERVER {
-	int MAX_PLAYER = 8; // 最大プレイヤー数
-}
-
 class Server
 {
 public:
@@ -21,13 +17,15 @@ public:
 
 	void AddPeople(char name); // メンバーの追加
 	PACKET GetRecvData() { return recvData_; } // 受け取ったデータの取得
-	int GetPlayerCount() { return sockets_.size(); } // プレイヤーの人数の取得
-	void SetPlayerLimit(int count) { SERVER::MAX_PLAYER = count; } // プレイヤーの人数の設定
+	int GetPlayerCount() { return (int)sockets_.size(); } // プレイヤーの人数の取得
+	void SetPlayerLimit(int count) { limitPlayer_ = count; } // プレイヤーの人数の設定
 
 private:
 
 
 	int portNumber_;				// ポート番号
+	int limitPlayer_;				// その部屋の最大の人数
+
 	SOCKET listenSocket_;			// リスンソケット
 	std::vector<SOCKET> sockets_;	// クライアントのソケット配列
 

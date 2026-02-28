@@ -9,7 +9,7 @@ ServerScene::ServerScene()
 	Packet::Init();
 	server_ = new Server(SERVER_PORT_NUMBER);
 	server_->Init();
-	playerCount = 1;
+	playerCount_ = 1;
 }
 
 ServerScene::~ServerScene()
@@ -30,8 +30,7 @@ void ServerScene::GetDataUpdate()
 {
 	recvData_ = server_->GetRecvData();
 	sendData_ = recvData_;
-	//const char* playerName = "プレイヤー" + playerCount;
-	std::string playerName = "プレイヤー" + std::to_string(playerCount);
+	std::string playerName = "プレイヤー" + std::to_string(playerCount_);
 	switch (Packet::dataName[recvData_.dataType])
 	{
 	case END_MAKE_ROOM: // 部屋立ち上げ終了と言われたら
@@ -42,7 +41,7 @@ void ServerScene::GetDataUpdate()
 
 	case MAKE_ROOM: // 部屋立ち上げ
 		// 番号が使用済みでなかったら立ち上げ成功
-		useNumber.push_back(recvData_.number); // 使用している番号を追加
+		useNumber_.push_back(recvData_.number); // 使用している番号を追加
 		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_MATCHING", _TRUNCATE);
 		strncpy_s(sendData_.playerName, sizeof(sendData_.playerName), playerName.c_str(), _TRUNCATE);
 		server_->SendData(sendData_);
@@ -55,7 +54,7 @@ void ServerScene::GetDataUpdate()
 		server_->SendData(sendData_);
 
 		// 成功したら
-		playerCount += 1;
+		playerCount_ += 1;
 
 		break;
 
@@ -63,7 +62,29 @@ void ServerScene::GetDataUpdate()
 		// 部屋番号に登録された名前の人を存在させる
 		// 
 
+	case SEND_IMAGE:
+		// 今までに送られてきたimageをリストに追加
+		// 参加者分そろったら、参加人数分送り返す
+		// その後ゲーム再開
+
+
+
+
 		break;
 	}
+}
+
+int ServerScene::AddRecvImage(PACKET recv)
+{
+	auto it = std::find(hImageList_.begin(), hImageList_.end(), recv.number);
+
+	// 見つからなかった
+	if (it == hImageList_.end())
+	{
+		hImageList_.push_back(recv.number);
+		return (int)hImageList_.size();
+	}
+
+	return -1;
 }
 

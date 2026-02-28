@@ -14,10 +14,14 @@ public:
 	void GetDataUpdate(); // データを取得したときに行われる更新処理
 
 private:
+	int AddRecvImage(PACKET recv); // 受信した画像データをリストに追加する -1 → 追加できなかった
+	
 	Server* server_;
 	PACKET sendData_; // 送信データ
 	PACKET recvData_; // 受信データ
-	std::vector<int> useNumber;
-	char name[256];
-	int playerCount; // 各部屋にいるプレイヤー
+	std::vector<int> useNumber_;
+	//char name[256];
+	int playerCount_; // 各部屋にいるプレイヤー
+	
+	std::vector<int> hImageList_;
 };
