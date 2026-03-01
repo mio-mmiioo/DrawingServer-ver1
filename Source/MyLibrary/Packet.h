@@ -39,8 +39,9 @@ namespace Packet
 
 	// 追加されたプレイヤーの名前を保存しておく配列
 	// 追加できた場合 → 1, 追加できなかった場合 → -1
-	int AddPlayerName(std::string name);
+	//int AddPlayerName(std::string name);
 
 	extern std::map<std::string, PACKET_DATA_TYPE> dataName;	// データの名前, データの種類
+	//extern std::vector<std::string> playerName;					// プレイヤーの名前
 }
 

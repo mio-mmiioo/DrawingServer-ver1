@@ -135,7 +135,7 @@ bool Server::ReceiveData()
 {
     bool ret = false;
     // ŽóMˆ—
-    for (auto s : sockets_)
+    for (auto& s : sockets_)
     {
         int check = recv(s, (char*)&recvData_, sizeof(PACKET), 0);
         if (check > 0)

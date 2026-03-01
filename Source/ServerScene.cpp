@@ -52,6 +52,7 @@ void ServerScene::GetDataUpdate()
 		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_MATCHING", _TRUNCATE);
 		strncpy_s(sendData_.playerName, sizeof(sendData_.playerName), playerName.c_str(), _TRUNCATE);
 		server_->SendData(sendData_);
+		AddPlayerName(sendData_.playerName);
 
 		break;
 	case ENTER_ROOM: // 入室
@@ -59,9 +60,7 @@ void ServerScene::GetDataUpdate()
 		strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_MATCHING", _TRUNCATE);
 		strncpy_s(sendData_.playerName, sizeof(sendData_.playerName), playerName.c_str(), _TRUNCATE);
 		server_->SendData(sendData_);
-
-		// 成功したら
-		playerCount_ += 1;
+		AddPlayerName(sendData_.playerName);
 
 		break;
 
@@ -115,6 +114,21 @@ int ServerScene::AddRecvImage(PACKET recv)
 	{
 		hImageList_.push_back(recv.number);
 		return (int)hImageList_.size();
+	}
+
+	return -1;
+}
+
+int ServerScene::AddPlayerName(std::string name)
+{
+	// すでに同じ名前が使用されていたら、追加できない
+	auto findName = std::find(playerName_.begin(), playerName_.end(), name);
+	// 見つからなかった場合
+	if (findName == playerName_.end())
+	{
+		playerName_.push_back(name);
+		playerCount_ += 1;
+		return 1;
 	}
 
 	return -1;

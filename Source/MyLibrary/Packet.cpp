@@ -4,7 +4,7 @@
 namespace Packet
 {
 	std::map<std::string, PACKET_DATA_TYPE> dataName;	// データの名前, データの種類
-	std::vector<std::string> playerName;				// プレイヤーの名前
+	//std::vector<std::string> playerName;				// プレイヤーの名前
 }
 
 void Packet::Init()
@@ -31,16 +31,16 @@ PACKET Packet::ByteSwapPacket(PACKET data)
 	return ret;
 }
 
-int Packet::AddPlayerName(std::string name)
-{
-	// すでに同じ名前が使用されていたら、追加できない
-	auto findName = std::find(playerName.begin(), playerName.end(), name);
-	// 見つからなかった場合
-	if (findName == playerName.end())
-	{
-		playerName.push_back(name);
-		return 1;
-	}
-
-	return -1;
-}
+//int Packet::AddPlayerName(std::string name)
+//{
+//	// すでに同じ名前が使用されていたら、追加できない
+//	auto findName = std::find(playerName.begin(), playerName.end(), name);
+//	// 見つからなかった場合
+//	if (findName == playerName.end())
+//	{
+//		playerName.push_back(name);
+//		return 1;
+//	}
+//
+//	return -1;
+//}

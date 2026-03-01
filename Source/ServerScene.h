@@ -15,7 +15,7 @@ public:
 
 private:
 	int AddRecvImage(PACKET recv); // 受信した画像データを配列に追加する -1 → 追加できなかった
-	
+	int AddPlayerName(std::string name);
 	Server* server_;
 	PACKET sendData_; // 送信データ
 	PACKET recvData_; // 受信データ
@@ -25,4 +25,5 @@ private:
 	int phaseCount_; // 各部屋のフェーズの回数
 	
 	std::vector<int> hImageList_; // 受信した画像データを保存する配列
+	std::vector<std::string> playerName_;
 };
