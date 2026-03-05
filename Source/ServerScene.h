@@ -20,9 +20,8 @@ private:
 	PACKET sendData_; // 送信データ
 	PACKET recvData_; // 受信データ
 	std::vector<int> useNumber_;
-	//char name[256];
 	int playerCount_; // 各部屋にいるプレイヤー
-	int phaseCount_; // 各部屋のフェーズの回数
+	int phaseCount_;  // 各部屋のフェーズの回数
 	
 	std::vector<int> hImageList_; // 受信した画像データを保存する配列
 	std::vector<std::string> playerName_;

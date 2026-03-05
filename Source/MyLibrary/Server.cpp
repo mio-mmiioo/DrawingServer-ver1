@@ -92,6 +92,7 @@ void Server::ListenSocket()
     }
 }
 
+// 送られてきたデータを送り返す
 void Server::SendData()
 {
     for (auto s : sockets_)
@@ -99,7 +100,7 @@ void Server::SendData()
         if (s == -1) continue;
         // 送信
         sendData_ = Packet::ByteSwapPacket(recvData_);
-        printfDx("sendData : %s : %d\n", sendData_.dataType, sendData_.number);
+        printfDx("sendData : %s : %d\n", sendData_.dataType, sendData_.number); // 送信するデータを出力する
         int sendRet = send(s, (char*)&sendData_, sizeof(sendData_), 0);
         if (sendRet == SOCKET_ERROR)
         {
@@ -111,6 +112,7 @@ void Server::SendData()
     }
 }
 
+// 指定したデータを送信する
 void Server::SendData(PACKET data)
 {
     for (auto s : sockets_)

@@ -66,7 +66,6 @@ void ServerScene::GetDataUpdate()
 
 	case CHANGE_NAME: // 名前登録
 		// 部屋番号に登録された名前の人を存在させる
-		// 
 
 	case SEND_IMAGE:
 		// 今までに送られてきたimageをリストに追加
@@ -75,6 +74,7 @@ void ServerScene::GetDataUpdate()
 		if (AddRecvImage(recvData_) == server_->GetPlayerCount())
 		{
 			strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "SEND_IMAGE", _TRUNCATE);
+			// 集めた画像を参加者全員に送る(各参加者がそれぞれの画面で画像を表示できるようにするため)
 			for (int count = 0; count < hImageList_.size(); count++)
 			{
 				sendData_.number = hImageList_[count];
@@ -82,12 +82,12 @@ void ServerScene::GetDataUpdate()
 			}
 			hImageList_.clear();
 			phaseCount_ = -1;
-			if (phaseCount_ <= 0)
+			if (phaseCount_ <= 0) // お題入力とお絵描きを指定回数した後ならリザルトに移る指示を出す
 			{
 				strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_RESULT", _TRUNCATE);
 				server_->SendData(sendData_);
 			}
-			else
+			else // 次の回答を始める指示を出す
 			{
 				strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_GAME", _TRUNCATE);
 				server_->SendData(sendData_);
@@ -95,7 +95,7 @@ void ServerScene::GetDataUpdate()
 		}
 		break;
 
-	case STOP_GAME:
+	case STOP_GAME: 
 		if (phaseCount_ <= 0)
 		{
 			strncpy_s(sendData_.dataType, sizeof(sendData_.dataType), "START_RESULT", _TRUNCATE);
@@ -105,17 +105,19 @@ void ServerScene::GetDataUpdate()
 	}
 }
 
+// 受け取った画像を追加する
 int ServerScene::AddRecvImage(PACKET recv)
 {
 	auto it = std::find(hImageList_.begin(), hImageList_.end(), recv.number);
 
-	// 見つからなかった
+	// 見つからなかった　受信したことがない画像なので追加する
 	if (it == hImageList_.end())
 	{
 		hImageList_.push_back(recv.number);
 		return (int)hImageList_.size();
 	}
 
+	// すでに追加している画像だったなら-1を返す
 	return -1;
 }
 

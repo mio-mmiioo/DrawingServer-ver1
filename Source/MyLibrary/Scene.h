@@ -14,6 +14,7 @@ namespace SceneMaster
 	void Release();
 }
 
+// 各シーンを制作するときの親クラス
 class Scene
 {
 public:
